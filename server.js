@@ -9,21 +9,8 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 
-const allowedOrigins = [
-  'http://localhost:5174',
-  'https://resume-frontend-nu-red.vercel.app/' // Replace with your actual Vercel frontend URL
-];
-
 app.use(cors({
-  origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl)
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.includes(origin)) {
-      return callback(null, true);
-    }
-    return callback(new Error('Not allowed by CORS'));
-  },
-  credentials: false,
+  origin: ['https://resume-frontend-nu-red.vercel.app', 'http://localhost:5174'],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
