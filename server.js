@@ -8,9 +8,24 @@ dotenv.config();
 
 const app = express();
 app.use(express.json());
+
+const allowedOrigins = [
+  'http://localhost:5174',
+  'https://your-vercel-app-name.vercel.app' // Replace with your actual Vercel frontend URL
+];
+
 app.use(cors({
-  origin: 'http://localhost:5174',
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    return callback(new Error('Not allowed by CORS'));
+  },
+  credentials: true
 }));
+
 
 mongoose.connect(process.env.MONGO_URL)
     .then(() => console.log('connected to mongodb...'))
