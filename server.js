@@ -11,7 +11,7 @@ app.use(express.json());
 
 const allowedOrigins = [
   'http://localhost:5174',
-  'https://your-vercel-app-name.vercel.app' // Replace with your actual Vercel frontend URL
+  'https://resume-frontend-nu-red.vercel.app/' // Replace with your actual Vercel frontend URL
 ];
 
 app.use(cors({
